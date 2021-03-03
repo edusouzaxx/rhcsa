@@ -748,28 +748,92 @@ Laboratório do Capítulo: Lab: Tuning System Performance
 
 ## Chapter 7. Installing and Updating Software Packages
 
-Teoria rápida: 
-
-- 
-- 
-- 
-
 Prática Resumida:
 
 ```
+[user@host ~]$ subscription-manager register --username=yourusername --password=yourpassword
+[user@host ~]$ subscription-manager list --available | less
+[user@host ~]$ subscription-manager attach --auto
+[user@host ~]$ subscription-manager attach --pool=poolID
+[user@host ~]$ subscription-manager list --consumed
+[user@host ~]$ subscription-manager unregister
+```
+
+Entitlement certificates
+
+```
+/etc/pki/product contains certificates indicating which Red Hat products are installed on the system.
+
+/etc/pki/consumer contains certificates identifying the Red Hat account to which the system is registered.
+
+/etc/pki/entitlement contains certificates indicating which subscriptions are attached to the system. 
+```
+
+Managing Software Packages with Yum
+
+```
+[user@host ~]$ yum list 'http*'
+[user@host ~]$ yum search all 'web server'
+[user@host ~]$ yum info httpd
+[user@host ~]$ yum provides /var/www/html
+[user@host ~]$ yum install httpd
+[user@host ~]$ sudo yum update
+[user@host ~]$ yum list kernel
+[user@host ~]$ sudo yum remove httpd
+
+[user@host ~]$ yum group list
+[user@host ~]$ yum group info "RPM Development Tools"
+[user@host ~]$ sudo yum group install "RPM Development Tools"
+
+[user@host ~]$ tail -5 /var/log/dnf.rpm.log
+[user@host ~]$ sudo yum history
+[user@host ~]$ sudo yum history undo 5
+```
+
+Enabling Yum Software Repositories
+
+```
+[user@host ~]$ yum repolist all
+[user@host ~]$ yum-config-manager --enable rhel-8-server-debug-rpms
+
+[user@host ~]$ yum-config-manager --add-repo="http://dl.fedoraproject.org/pub/epel/8/x86_64/"
+
+[user@host ~]$ rpm --import http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
+[user@host ~]$ yum install http://dl.fedoraproject.org/pub/epel/8/x86_64/e/epel-rel
+
+[user@host ~]$ cat /etc/yum.repos.d/epel.repo
+[EPEL]
+name=EPEL 8
+baseurl=http://dl.fedoraproject.org/pub/epel/8/x86_64/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
 
 ```
 
-Dicas: 
+Managing Package Module Streams
 
-- 
-- 
-- 
+```
+[user@host ~]$ yum module list
+[user@host ~]$ yum module list perl
+[user@host ~]$ yum module info perl
+[user@host ~]$ yum module info --profile perl:5.24
+[user@host ~]$ sudo yum module install perl
+[user@host ~]$ yum module list perl
+[user@host ~]$ sudo yum module remove postgresql
+[user@host ~]$ sudo yum module reset postgresql
+[user@host ~]$ sudo yum module install postgresql:10
+```
 
 Laboratório do Capítulo:
 
 ```
+[student@serverb ~]$ yum module list
+[root@serverb ~]# yum module install httpd:2.4/common
 
+[student@serverb ~]$ rpm -q -p rhcsa-script-1.0.0-1.noarch.rpm -i
+[student@serverb ~]$ sudo yum localinstall rhcsa-script-1.0.0-1.noarch.rpm
+[student@serverb ~]$ rpm -q rhcsa-script
 ```
 
 ## Capitulo XX - assunto
