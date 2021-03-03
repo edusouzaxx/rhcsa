@@ -6,7 +6,7 @@
 
 ### Exercicio 01
 
-´´´
+```
 e
 systemd.unit=emergency.target ou rd.break
 crtl+x
@@ -18,25 +18,25 @@ crtl+x
 [root@serverb ~]# systemctl daemon-reload
 [root@serverb ~]# mount -a
 [root@serverb ~]# systemctl reboot
-´´´
+```
 
 Dicas: 
 
 ### Exercicio 02
 
-´´´
+```
 [student@serverb ~]$ systemctl get-default
 [student@serverb ~]$ sudo systemctl isolate multi-user.target
 [student@serverb ~]$ sudo systemctl set-default multi-user.target
 [student@serverb ~]$ sudo systemctl reboot
 [student@serverb ~]$ systemctl get-default
-´´´
+```
 
 Dicas: 
 
 ### Exercicio 03 
 
-´´´
+```
 [student@serverb ~]$ wget http://materials.example.com/labs/backup-home.sh
 [student@serverb ~]$ chmod +x backup-home.sh
 [student@serverb ~]$ crontab -e
@@ -48,7 +48,7 @@ ou
 [student@serverb ~]$ crontab -l
 
 0 19-21 * * Mon-Fri /home/student/backup-home.sh
-´´´
+```
 
 Dicas: 
 
@@ -57,7 +57,7 @@ Dicas:
 
 ### Exercicio 04 
 
-´´´
+```
 [root@serverb ~]# parted /dev/vdb mklabel msdos
 [root@serverb ~]# parted /dev/vdb mkpart primary 1GiB 3GiB
 [root@serverb ~]# parted /dev/vdb set 1 lvm on
@@ -70,40 +70,40 @@ Dicas:
 [root@serverb ~]# mkfs -t xfs /dev/extra_storage/vol_home
 [root@serverb ~]# lsblk -o UUID /dev/extra_storage/vol_home
 [root@serverb ~]# echo "UUID=988c...0ab6 /home-directories xfs defaults 0 0" >> /etc/fstab
-´´´
+```
 
 ### Exercicio 05
 
-´´´
+```
 [root@serverb ~]# mkdir /local-share
 [root@serverb ~]# echo "servera.lab.example.com:/share /local-share nfs rw,sync 0 0" >> /etc/fstab
 [root@serverb ~]# mount /local-share
-´´´
+```
 
 ### Exercicio 06
 
-´´´
+```
 [root@serverb ~]# parted /dev/vdc mklabel msdos
 [root@serverb ~]# parted /dev/vdc mkpart primary linux-swap 1MiB 513MiB
 [root@serverb ~]# mkswap /dev/vdc1
 [root@serverb ~]# lsblk -o UUID /dev/vdc1
 [root@serverb ~]# echo "UUID=cc18...1b69 swap swap defaults 0 0" >> /etc/fstab
 [root@serverb ~]# swapon -a
-´´´
+```
 
 ### Exercicio 07
 
-´´´
+```
 [root@serverb ~]# groupadd production
 [root@serverb ~]# for i in 1 2 3 4; do useradd -G production production$i; done
-´´´
+```
 
 ### Exercicio 08
 
-´´´
+```
 [root@servera ~]# echo "d /run/volatile 0700 root root 30s" > /etc/tmpfiles.d/volatile.conf
 [root@servera ~]# systemd-tmpfiles --create /etc/tmpfiles.d/volatile.conf
-´´´
+```
 
 Dicas: 
 
@@ -112,14 +112,14 @@ man tmpfiles.d.5
 
 ### Exercicio 09 
 
-´´´
+```
 [root@serverb ~]# mkdir /webcontent
 [root@serverb ~]# setfacl -m u:production1:rx /webcontent
 [root@serverb ~]# setfacl -m g:production:rwx /webcontent
 [root@serverb ~]# setfacl -m d:u:production1:rx /webcontent
 [root@serverb ~]# setfacl -m d:g:production:rwx /webcontent
 [root@serverb ~]# getfacl /webcontent
-´´´
+```
 
 Dicas: 
 
@@ -129,21 +129,21 @@ Dicas:
 
 ### Exercicio 10
 
-´´´
+```
 [student@serverb ~]$ ssh-keygen
 [student@serverb ~]$ ssh-copy-id student@servera
 [student@serverb ~]$ ssh student@servera
-´´´
+```
 
 ### Exercicio 10
 
-´´´
+```
 [student@servera ~]$ sudo vi /etc/sysconfig/selinux
 #SELINUX=enforcing
 SELINUX=permissive
 [student@servera ~]$ sudo systemctl reboot
 [student@servera ~]$ sudo sestatus
-´´´
+```
 
 Dicas:
 
@@ -152,7 +152,7 @@ Dicas:
 
 ### Exercicio 11
 
-´´´
+```
 [root@serverb ~]# yum install autofs
 [root@serverb ~]# echo "/- /etc/auto.production5" > /etc/auto.master.d/production5.autofs
 [root@serverb ~]# echo "/localhome/production5 -rw servera.lab.example.com:/home-directories/production5" > /etc/auto.production5
@@ -160,7 +160,7 @@ Dicas:
 [root@serverb ~]# systemctl restart autofs
 [root@estacao ~]# ssh production5@serverb
 [production5@serverb ~]# df -h
-´´´
+```
 
 Dicas:
 
@@ -169,7 +169,7 @@ Dicas:
 
 ### Exercicio 12
 
-´´´
+```
 [production5@servera ~]$ ssh-keygen
 [production5@servera ~]$ ssh-copy-id production5@serverb
 [production5@servera ~]$ ssh -o pubkeyauthentication=yes -o passwordauthentication=no production5@serverb
@@ -177,7 +177,7 @@ Permission denied
 [root@serverb ~]# setsebool -P use_nfs_home_dirs true
 [production5@servera ~]$ ssh -o pubkeyauthentication=yes -o passwordauthentication=no production5@serverb
 ok
-´´´
+```
 
 Dicas:
 
@@ -185,12 +185,12 @@ Dicas:
 - 
 ### Exercicio 1
 
-´´´
+```
 [root@serverb ~]# firewall-cmd --add-source=172.25.250.10/32 --zone=block --permanent
 [root@serverb ~]# firewall-cmd --reload
 [production5@servera ~]$ ssh serverb
 No route to host
-´´´
+```
 
 Dicas:
 
@@ -198,7 +198,7 @@ Dicas:
 - 
 ### Exercicio 1
 
-´´´
+```
 [root@serverb ~]# systemctl restart httpd.service
 Job for httpd.service failed
 
@@ -214,7 +214,7 @@ Apr 15 06:42:41 serverb.lab.example.com httpd[27313]: (13)Permission denied: AH0
 [root@serverb ~]# firewall-cmd --add-port=30080/tcp --permanent
 [root@serverb ~]# firewall-cmd --reload
 [root@serverb ~]# curl localhost:30080
-´´´
+```
 
 Dicas:
 
@@ -222,7 +222,7 @@ Dicas:
 - 
 ### Exercicio 1
 
-´´´
+```
 [containers@serverb ~]$ podman login registry.lab.example.com
 [containers@serverb ~]$ podman run -d --name web -p 8888:8080 -v /srv/web:/var/www:Z -e HTTPD_MPM=event registry.lab.example.com/rhel8/httpd-24:1-105
 [containers@serverb ~]$ curl http://localhost:8888/
@@ -240,7 +240,7 @@ Dicas:
 [containers@serverb ~]$ loginctl enable-linger
 [containers@serverb ~]$ systemctl reboot
 [containers@serverb user]$ curl http://localhost:8888/
-´´´
+```
 
 Dicas:
 
