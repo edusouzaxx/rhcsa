@@ -1,158 +1,12 @@
-# rhcsa
-Resumo RHCSA
-
 # RH124
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
 
 # RH134
 
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-## Lab
-
-### Exercicio 0
-
-```
-
-```
-
-# Lab RH134
+### Lab Final
 
 ### Exercicio 01
 
+´´´
 e
 systemd.unit=emergency.target ou rd.break
 crtl+x
@@ -164,21 +18,25 @@ crtl+x
 [root@serverb ~]# systemctl daemon-reload
 [root@serverb ~]# mount -a
 [root@serverb ~]# systemctl reboot
+´´´
 
 Dicas: 
 
 ### Exercicio 02
 
+´´´
 [student@serverb ~]$ systemctl get-default
 [student@serverb ~]$ sudo systemctl isolate multi-user.target
 [student@serverb ~]$ sudo systemctl set-default multi-user.target
 [student@serverb ~]$ sudo systemctl reboot
 [student@serverb ~]$ systemctl get-default
+´´´
 
 Dicas: 
 
 ### Exercicio 03 
 
+´´´
 [student@serverb ~]$ wget http://materials.example.com/labs/backup-home.sh
 [student@serverb ~]$ chmod +x backup-home.sh
 [student@serverb ~]$ crontab -e
@@ -190,6 +48,7 @@ ou
 [student@serverb ~]$ crontab -l
 
 0 19-21 * * Mon-Fri /home/student/backup-home.sh
+´´´
 
 Dicas: 
 
@@ -198,6 +57,7 @@ Dicas:
 
 ### Exercicio 04 
 
+´´´
 [root@serverb ~]# parted /dev/vdb mklabel msdos
 [root@serverb ~]# parted /dev/vdb mkpart primary 1GiB 3GiB
 [root@serverb ~]# parted /dev/vdb set 1 lvm on
@@ -210,31 +70,40 @@ Dicas:
 [root@serverb ~]# mkfs -t xfs /dev/extra_storage/vol_home
 [root@serverb ~]# lsblk -o UUID /dev/extra_storage/vol_home
 [root@serverb ~]# echo "UUID=988c...0ab6 /home-directories xfs defaults 0 0" >> /etc/fstab
+´´´
 
 ### Exercicio 05
 
+´´´
 [root@serverb ~]# mkdir /local-share
 [root@serverb ~]# echo "servera.lab.example.com:/share /local-share nfs rw,sync 0 0" >> /etc/fstab
 [root@serverb ~]# mount /local-share
+´´´
 
 ### Exercicio 06
 
+´´´
 [root@serverb ~]# parted /dev/vdc mklabel msdos
 [root@serverb ~]# parted /dev/vdc mkpart primary linux-swap 1MiB 513MiB
 [root@serverb ~]# mkswap /dev/vdc1
 [root@serverb ~]# lsblk -o UUID /dev/vdc1
 [root@serverb ~]# echo "UUID=cc18...1b69 swap swap defaults 0 0" >> /etc/fstab
 [root@serverb ~]# swapon -a
+´´´
 
 ### Exercicio 07
 
+´´´
 [root@serverb ~]# groupadd production
 [root@serverb ~]# for i in 1 2 3 4; do useradd -G production production$i; done
+´´´
 
 ### Exercicio 08
 
+´´´
 [root@servera ~]# echo "d /run/volatile 0700 root root 30s" > /etc/tmpfiles.d/volatile.conf
 [root@servera ~]# systemd-tmpfiles --create /etc/tmpfiles.d/volatile.conf
+´´´
 
 Dicas: 
 
@@ -243,12 +112,14 @@ man tmpfiles.d.5
 
 ### Exercicio 09 
 
+´´´
 [root@serverb ~]# mkdir /webcontent
 [root@serverb ~]# setfacl -m u:production1:rx /webcontent
 [root@serverb ~]# setfacl -m g:production:rwx /webcontent
 [root@serverb ~]# setfacl -m d:u:production1:rx /webcontent
 [root@serverb ~]# setfacl -m d:g:production:rwx /webcontent
 [root@serverb ~]# getfacl /webcontent
+´´´
 
 Dicas: 
 
@@ -258,9 +129,11 @@ Dicas:
 
 ### Exercicio 10
 
+´´´
 [student@serverb ~]$ ssh-keygen
 [student@serverb ~]$ ssh-copy-id student@servera
 [student@serverb ~]$ ssh student@servera
+´´´
 
 ### Exercicio 10
 
